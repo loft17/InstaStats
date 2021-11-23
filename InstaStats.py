@@ -239,7 +239,7 @@ def ShowEngagementHistoricoBBDD():
     SqlShowEngagement = ConnectShowEngagementHistorico.fetchall()
 
     print(bcolors.OKGREEN + "\nFecha\t\t Engagement\t\t\t Diferencia" + bcolors.ENDC)
-    for Engadment in SqlShowEngagement in range(2):
+    for Engadment in SqlShowEngagement:
         print(Engadment[0], "\t", Engadment[1])
 
 
