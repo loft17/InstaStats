@@ -1,0 +1,213 @@
+#!/usr/bin/env python3
+# @author: Jose Luis Romera
+# https://github.com/brunomb97/InstagramStats
+# https://instaloader.github.io/
+# python3 InstaStats.py kojiro_thedog --login kojiro_thedog
+
+
+import os, aux_funcs, argparse
+import instaloader
+import mysql.connector
+
+from datetime import date
+
+# ------------------------------------------------------------------------------------------------------------------------
+# Variales
+# ------------------------------------------------------------------------------------------------------------------------
+today = date.today()
+args = aux_funcs.get_args()
+
+
+# Variables para conectar a Instagram
+L = instaloader.Instaloader()
+USER = args.user
+PROFILE = USER
+
+L.load_session_from_file(USER)
+#profile = instaloader.Profile.from_username(L.context, PROFILE)
+
+# Variables para colorear el texto en consola
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+
+# ------------------------------------------------------------------------------------------------------------------------
+# Mostramos un menu de ayuda para ejecutar correctamente la aplicacion
+def PrintUsage():
+    os.system('clear')    
+    print("Usage: \n python3 main.py -u USERNAME -l LOGIN -o OPTIONS")
+    print("\nOptions: ")
+    print("\n- followers \t\t\t\t\tMostramos el numero total de cuentas que te siguen\n\t\t\t\t\t\ty el nombre de estas")
+    print("\n- followees \t\t\t\t\tMostramos el numero total de cuentas que sigues\n\t\t\t\t\t\ty el nombre de estas")
+    print("\n- nofollowback \t\t\t\t\tMostramos las cuentas que seguimos, pero estas\n\t\t\t\t\t\tno nos siguen a nosotros")
+    print("\n- engagement \t\t\t\t\tMida el compromiso de Instagram y asegúrese de\n\t\t\t\t\t\tque su audiencia se mantenga conectada")
+    print("\n- ghostfollowers \t\t\t\tMe gusta de un perfil seguidores fantasmas\n\t\t\t\t\t\tPara obtener una lista de sus seguidores inactivos, es decir, seguidores a\n\t\t\t\t\t\tlos que no les gustó ninguna de sus imágenes, puede utilizar este enfoque.")
+    print("\n- ayuda \t\t\t\t\tMuestra las opciones disponibles")
+
+
+#........................................................................................................................
+# conexión BBDD
+ConnectBBDD=mysql.connector.connect(
+	host="localhost",
+	user="root",
+	passwd="pruebas",
+	database="instagramstats")
+
+
+# ------------------------------------------------------------------------------------------------------------------------
+# Me gusta de un perfil / seguidores fantasmas
+# Para obtener una lista de sus seguidores inactivos, es decir, seguidores a 
+# los que no les gustó ninguna de sus imágenes, puede utilizar este enfoque. 
+def GhostFollowers():
+    profile = instaloader.Profile.from_username(L.context, PROFILE)
+    AccountPost = 1
+    likes = set()
+    #print("Obteniendo Me gusta de todas las publicaciones del perfil {}.".format(profile.username))
+
+    for post in profile.get_posts():
+        print(post)
+        likes = likes | set(post.get_likes())
+    
+    #print("Obteniendo seguidores del perfil {}.".format(profile.username))
+    followers = set(profile.get_followers())
+    ghosts = followers - likes
+
+    #print("Guardando usuarios fantamas en fichero")
+    os.system('clear')
+    with open("inactive-users.txt", 'w') as f:
+        for ghost in ghosts:
+            print(ghost.username)
+            print(ghost.username, file=f)
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Mostramos el engadmet de la cuentas
+def Engagement():
+    profile = instaloader.Profile.from_username(L.context, PROFILE)
+    num_followers = profile.followers
+    total_num_likes = 0
+    total_num_comments = 0
+    total_num_posts = 0
+
+    for post in profile.get_posts():
+        total_num_likes += post.likes
+        total_num_comments += post.comments
+        total_num_posts += 1
+
+    # Mostramos el Engagement
+    engagement = float(total_num_likes + total_num_comments) / (num_followers * total_num_posts)
+    os.system('clear')
+    engagement=engagement * 100
+    engagement = round(engagement, 2)
+    print("\nEngagement rate: " + USER + " " + str(engagement))
+
+    # -----------------------------------------------------------------------------------------------------------------
+    # Guardamos el dato del engadmet dentro de la BBDD
+    ConnectEngagement=ConnectBBDD.cursor()
+    ConnectEngagement.execute(
+        "SELECT account FROM engagement WHERE date = %s AND account = %s", (today, USER)
+    )
+    ConsultaSql = ConnectEngagement.fetchone()  
+    ConsultaSql = (str(*ConsultaSql))
+
+    if(ConsultaSql == USER):
+        ConnectEngagement.execute(
+            "DELETE FROM engagement WHERE date = %s AND account = %s", (today, USER)
+        )
+
+    datos=(today, USER, engagement)
+    InsertEngagement="insert into engagement(date, account, engagement) values (%s,%s,%s)"
+    ConnectEngagement.execute(InsertEngagement, datos)
+
+    ConnectBBDD.commit()
+    ConnectBBDD.close()
+
+
+# ------------------------------------------------------------------------------------------------------------------------
+# Mostramos las cuentas que nos siguen
+def Followers():
+    ConnectFollowers=ConnectBBDD.cursor()
+
+    # Eliminamos los registros anteriores
+    ConnectFollowers.execute(
+        "DELETE FROM followers WHERE date = %s AND account = %s", (today, USER)
+    )
+
+    profile = instaloader.Profile.from_username(L.context, PROFILE)
+    followers = profile.get_followers()
+
+    InsertFollowers="insert into followers(date, follower, account) values (%s,%s,%s)"
+    for follower in followers:
+        datos=(today, follower.username, USER)
+        print(follower.username)
+        ConnectFollowers.execute(InsertFollowers, datos)
+
+
+    ConnectBBDD.commit()
+    ConnectBBDD.close()
+
+
+
+
+# ------------------------------------------------------------------------------------------------------------------------
+# Mostramos las cuentas a las que seguimos
+def Followees():
+    profile = instaloader.Profile.from_username(L.context, PROFILE)
+    followees = profile.get_followees()
+
+    for followee in followees:
+        print(followee.username)
+
+
+# ------------------------------------------------------------------------------------------------------------------------
+# Mostramos las cuentas que no hacen followback
+def NoFollowBack():
+    profile = instaloader.Profile.from_username(L.context, PROFILE)
+    followers = profile.get_followers()
+    followees = profile.get_followees()
+
+    for AccountNoFollowBack in followees:
+        if AccountNoFollowBack not in followers:
+            print(AccountNoFollowBack.username)
+
+#------------------------------------------------------------------------------------------------------------------------
+# Ejecucion
+#------------------------------------------------------------------------------------------------------------------------
+def main():
+    option = args.option
+
+    if(option == "ayuda"):
+        PrintUsage()
+    
+    elif(option == "ghostfollowers"):
+        GhostFollowers()
+
+    elif(option == "engagement"):
+        Engagement()
+
+    elif(option == "followers"):
+        Followers()
+
+    elif(option == "followees"):
+        Followees()
+
+    elif(option == "nofollowback"):
+        NoFollowBack()
+
+    elif(option == "test"):
+        test()
+
+    else:
+        PrintUsage()
+
+
+if __name__ == "__main__":
+		main()
