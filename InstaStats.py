@@ -228,9 +228,6 @@ def ShowEngagementBBDD():
 # --------------------------------------------------------------------------------------------------------------------------
 # Mostrar el engadment historico, y su variacion con el dia anterior.
 # --------------------------------------------------------------------------------------------------------------------------
-
-# SELECT `date`, `account`, `engagement` FROM `engagement` WHERE `account` = 'lafustadeoro' 
-
 def ShowEngagementHistoricoBBDD():
     ConnectShowEngagementHistorico=ConnectBBDD.cursor()
     ConnectShowEngagementHistorico.execute(
