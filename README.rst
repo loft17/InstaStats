@@ -9,6 +9,7 @@
 
 
 🚀 **Instalación**
+1. ***Install Medusa CLI***
 
 ::
     $ pip3 install instaloader
