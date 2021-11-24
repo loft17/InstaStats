@@ -1,5 +1,5 @@
 # InstaStats
-Exportación de las principales 
+Exportación de los principales datos publicos de instagram. 
 
 ## Instalación
 ```
