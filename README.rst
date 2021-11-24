@@ -8,7 +8,7 @@
    :target: https://github.com/instaloader/instaloader/blob/master/LICENSE
 
 
-** 🚀 Instalación **
+🚀 **Instalación**
 
 ::
     $ pip3 install instaloader
