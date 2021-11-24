@@ -1,14 +1,14 @@
 **InstaStats**
 
 .. badges-start
-|pyversion| |license|
+|[Twitter of InstaPy](https://twitter.com/InstaPy) | |license|
+
+
 
 .. |license| image:: https://img.shields.io/github/license/instaloader/instaloader.svg
    :alt: MIT License
    :target: https://github.com/instaloader/instaloader/blob/master/LICENSE
 
-.. |pyversion| image:: https://img.shields.io/pypi/pyversions/instaloader.svg
-   :alt: Supported Python Versions
 
 **Instalación**
 ::
