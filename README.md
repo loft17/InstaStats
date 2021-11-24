@@ -1,4 +1,4 @@
-**InstaStats**
+# InstaStats
 
 <p align="left">
   <a href="https://www.joseromera.net">
@@ -7,5 +7,7 @@
 </p>
 
 ## Instalación 🚀
-*$ pip3 install instaloader*
-    $ git clone https://github.com/loft17/InstaStats.git
+```
+$ pip3 install instaloader
+$ git clone https://github.com/loft17/InstaStats.git
+```
