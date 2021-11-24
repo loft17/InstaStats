@@ -6,14 +6,6 @@
   </a>
 </p>
 
-# Instalación 🚀
-
-# Filament
-aa
-
-## Filament2
-1. ***Install Medusa CLI***
-
-::
-    $ pip3 install instaloader
+## Instalación 🚀
+*$ pip3 install instaloader*
     $ git clone https://github.com/loft17/InstaStats.git
