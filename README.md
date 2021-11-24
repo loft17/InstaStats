@@ -1,13 +1,22 @@
+**InstaStats**
+
+.. badges-start
+|license|
+
+.. |license| image:: https://img.shields.io/github/license/instaloader/instaloader.svg
+   :alt: MIT License
+   :target: https://github.com/instaloader/instaloader/blob/master/LICENSE
+
+
+🚀 
+# Instalación
+
 # Filament
+aa
 
-[![Android Build Status](https://github.com/google/filament/workflows/Android/badge.svg)](https://github.com/google/filament/actions?query=workflow%3AAndroid)
-[![iOS Build Status](https://github.com/google/filament/workflows/iOS/badge.svg)](https://github.com/google/filament/actions?query=workflow%3AiOS)
-[![Linux Build Status](https://github.com/google/filament/workflows/Linux/badge.svg)](https://github.com/google/filament/actions?query=workflow%3ALinux)
-[![macOS Build Status](https://github.com/google/filament/workflows/macOS/badge.svg)](https://github.com/google/filament/actions?query=workflow%3AmacOS)
-[![Windows Build Status](https://github.com/google/filament/workflows/Windows/badge.svg)](https://github.com/google/filament/actions?query=workflow%3AWindows)
-[![Web Build Status](https://github.com/google/filament/workflows/Web/badge.svg)](https://github.com/google/filament/actions?query=workflow%3AWeb)
+## Filament2
+1. ***Install Medusa CLI***
 
-Filament is a real-time physically based rendering engine for Android, iOS, Linux, macOS, Windows,
-and WebGL. It is designed to be as small as possible and as efficient as possible on Android.
-
-## Download
+::
+    $ pip3 install instaloader
+    $ git clone https://github.com/loft17/InstaStats.git
