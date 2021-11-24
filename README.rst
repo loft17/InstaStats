@@ -8,7 +8,8 @@
    :target: https://github.com/instaloader/instaloader/blob/master/LICENSE
 
 
-🚀 # Instalación
+🚀 
+# Instalación
 1. ***Install Medusa CLI***
 
 ::
