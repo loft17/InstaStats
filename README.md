@@ -1,10 +1,5 @@
 # InstaStats
 
-<p align="left">
-  <a href="https://www.joseromera.net">
-    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="InstaStats is released under the MIT license." />
-  </a>
-</p>
 
 ## Instalación
 ```
@@ -13,6 +8,9 @@ $ git clone https://github.com/loft17/InstaStats.git
 ```
 
 ## Caracteristicas
+- Followers, (listado de cuentas y numero total)
+- Visualizacion de Engagement
+
 
 ## Comentarios
 
@@ -21,4 +19,3 @@ $ git clone https://github.com/loft17/InstaStats.git
 - web: [www.joseromera.net](https://www.joseromera.net)
 
 ## License
-- This project is [MIT](https://github.com/Panshak/arcinvoice/blob/master/LICENSE.md) licensed.
