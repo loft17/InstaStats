@@ -1,11 +1,6 @@
 **InstaStats**
 
-.. badges-start
-|license|
-
-.. |license| image:: https://img.shields.io/github/license/instaloader/instaloader.svg
-   :alt: MIT License
-   :target: https://github.com/instaloader/instaloader/blob/master/LICENSE
+[![Android Build Status](https://github.com/google/filament/workflows/Android/badge.svg)](https://github.com/google/filament/actions?query=workflow%3AAndroid)
 
 
 # Instalación 🚀
