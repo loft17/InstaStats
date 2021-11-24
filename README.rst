@@ -1,5 +1,8 @@
 **InstaStats**
 
+.. badges-start
+|pyversion| |license|
+
 .. |license| image:: https://img.shields.io/github/license/instaloader/instaloader.svg
    :alt: MIT License
    :target: https://github.com/instaloader/instaloader/blob/master/LICENSE
