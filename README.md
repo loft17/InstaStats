@@ -1,5 +1,5 @@
 # InstaStats
-
+Exportación de las principales 
 
 ## Instalación
 ```
@@ -8,9 +8,14 @@ $ git clone https://github.com/loft17/InstaStats.git
 ```
 
 ## Caracteristicas
-- Followers, (listado de cuentas y numero total)
-- Visualizacion de Engagement
+- Followers.
+- Followees.
+- Likes totales
+- Comentarios totales
+- Engagement.
 
+## Proximamente
+- No follow back (personas a las que sigues, pero estas no te siguen)
 
 ## Comentarios
 
