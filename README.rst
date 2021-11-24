@@ -10,6 +10,8 @@
 
 🚀 
 # Instalación
+
+
 1. ***Install Medusa CLI***
 
 ::
