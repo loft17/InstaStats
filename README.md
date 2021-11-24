@@ -6,8 +6,19 @@
   </a>
 </p>
 
-## Instalación 🚀
+## Instalación
 ```
 $ pip3 install instaloader
 $ git clone https://github.com/loft17/InstaStats.git
 ```
+
+## Caracteristicas
+
+## Comentarios
+
+## Autor
+- Twitter: [@gogollack](https://twitter.com/gogollack)
+- web: [www.joseromera.net](https://www.joseromera.net)
+
+## License
+- This project is [MIT](https://github.com/Panshak/arcinvoice/blob/master/LICENSE.md) licensed.
