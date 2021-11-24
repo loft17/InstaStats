@@ -1,8 +1,8 @@
 **InstaStats**
 
-<p align="center">
-  <a href="https://github.com/medusajs/medusa/blob/master/LICENSE">
-    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="Medusa is released under the MIT license." />
+<p align="left">
+  <a href="https://www.joseromera.net">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="InstaStats is released under the MIT license." />
   </a>
 </p>
 
