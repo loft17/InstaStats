@@ -8,7 +8,7 @@ import mysql.connector
 from datetime import date
 from configparser import ConfigParser
 
-from scripts import nofollowback, showfollowees, showfollowers
+from scripts import nofollowback, showfollowees, showfollowers, medianumcomments, medianumlikes, totalnumfollowees
 
 # ------------------------------------------------------------------------------------------------------------------------
 # Variales
@@ -245,56 +245,12 @@ def TotalNumFollowers():
 
 
 
-# ##########################################################################################################################
-# Numero TOTAL Followees
-# ##########################################################################################################################
-def TotalNumFollowees():
-    ConnectShowTotalFollowees=ConnectBBDD.cursor()
-    ConnectShowTotalFollowees.execute(
-        "SELECT count_followees FROM ig_report WHERE date = %s AND account = %s", (today, PROFILE)
-    )
-    SqlShowTotalNumFollowees = (str(*ConnectShowTotalFollowees.fetchone()))
-    print("Total Followees: " + color.OKGREEN + SqlShowTotalNumFollowees + color.ENDC)
 
 
 
-# ##########################################################################################################################
-# Numero MEDIA LIKES por post
-# ##########################################################################################################################
-def MediaNumLikes():
-    ConnectShowMediaLikes=ConnectBBDD.cursor()
-    ConnectShowMediaLikes.execute(
-        "SELECT total_likes FROM ig_report WHERE date = %s AND account = %s", (today, PROFILE)
-    )
-    SqlShowMediaNumLikes = (int(*ConnectShowMediaLikes.fetchone()))
-    
-    ConnectShowMediaLikes.execute(
-        "SELECT total_post FROM ig_report WHERE date = %s AND account = %s", (today, PROFILE)
-    )
-    SqlShowMediaNumPost = (int(*ConnectShowMediaLikes.fetchone()))
-
-    NumMediaLikesPosts = round(SqlShowMediaNumLikes / SqlShowMediaNumPost, 2)
-    print("Media Likes por post: " + color.OKGREEN + str(NumMediaLikesPosts) + color.ENDC)
 
 
 
-# ##########################################################################################################################
-# Numero MEDIA COMENTARIOS por post
-# ##########################################################################################################################
-def MediaNumComments():
-    ConnectShowMediaComments=ConnectBBDD.cursor()
-    ConnectShowMediaComments.execute(
-        "SELECT total_comments FROM ig_report WHERE date = %s AND account = %s", (today, PROFILE)
-    )
-    SqlShowMediaNumComments = (int(*ConnectShowMediaComments.fetchone()))
-    
-    ConnectShowMediaComments.execute(
-        "SELECT total_post FROM ig_report WHERE date = %s AND account = %s", (today, PROFILE)
-    )
-    SqlShowMediaNumPost = (int(*ConnectShowMediaComments.fetchone()))
-
-    NumMediaCommentsPosts = round(SqlShowMediaNumComments / SqlShowMediaNumPost, 2)
-    print("Media comentarios por post: " + color.OKGREEN + str(NumMediaCommentsPosts) + color.ENDC)
 
 
 
@@ -361,16 +317,13 @@ def main():
         TotalNumFollowers()
 
     elif(option == "numtotalfollowees"):
-        TotalNumFollowees()
+        totalnumfollowees.TotalNumFollowees()
 
     elif(option == "medialikes"):
-        MediaNumLikes()
+        medianumlikes.MediaNumLikes()
 
     elif(option == "mediacomentarios"):
-        MediaNumComments()
-
-    elif(option == "resumeninfo"):
-        ResumenInfoAccount()
+        medianumcomments.MediaNumComments()
 
     elif(option == "followers"):
         showfollowers.ShowFollowers()
@@ -382,7 +335,8 @@ def main():
         nofollowback.NoFollowBack()
 
 
-
+    elif(option == "resumeninfo"):
+        ResumenInfoAccount()
 
 
 
@@ -392,7 +346,7 @@ def main():
         MainMenu()
 
     elif(option == "test"):
-        showfollowers.ShowFollowers()
+        totalnumfollowees.TotalNumFollowees()
 
     else:
         MainMenu()
