@@ -1,4 +1,16 @@
-import os, aux_funcs, argparse, re, menu_ayuda
+#!/usr/bin/env python3
+# python3 InstaStats.py kojiro_thedog --login kojiro_thedog
+
+import os, aux_funcs, argparse, re, printcolors
+import instaloader
+import mysql.connector
+
+from datetime import date
+from configparser import ConfigParser
+
+from scripts import menuayuda, nofollowback, showfollowees, showfollowers, medianumcomments, medianumlikes, totalnumfollowees, resumeninfoaccount, totalnumfollowers, showengagementBBDD, totalnumpost, totalnumcomments, totalnumlikes, version, ghostlastimg
+
+
 
 # ------------------------------------------------------------------------------------------------------------------------
 # Mostramos un menu de ayuda para ejecutar correctamente la aplicacion
@@ -22,6 +34,11 @@ def PrintUsage():
     print("\n- numtotalfollowees\t\t\t\tMuestra el numero total de followees recibidos")
     print("\n- medialikes\t\t\t\t\tMuestra la media de likes recibidos entre los posts")
     print("\n- mediacomentarios\t\t\t\tMuestra la media de comentarios recibidos entre los posts")
+
+    print("\n- ghostlastimgfollowees\t\t\t\tMuestra a quien sigues que no han dado like en tus ultimas\n\t\t\t\t\t\t20 imagenes")
+    print("\n- ghostlastimgfollowers\t\t\t\tMuestra tus seguidores que no han dado like en tus ultimas\n\t\t\t\t\t\t20 imagenes")
+    print("\n- ghosttotalimgfollowees\t\t\tMuestra tus seguidores que no han dado like en ninguna de tus\n\t\t\t\t\t\timagenes")
+    print("\n- ghosttotalimgfollowers\t\t\tMuestra a quien sigues que no han dado like en ninguna de tus\n\t\t\t\t\t\timagenes")
 
     print("\n- version\t\t\t\t\tMuestra la version del programa")
     print("\n- ayuda / help \t\t\t\t\tMuestra las opciones disponibles")

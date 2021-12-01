@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # python3 InstaStats.py kojiro_thedog --login kojiro_thedog
 
-import os, aux_funcs, argparse, re, menu_ayuda, printcolors
+import os, aux_funcs, argparse, re, printcolors
 import instaloader
 import mysql.connector
 

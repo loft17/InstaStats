@@ -12,9 +12,10 @@ $ git clone https://github.com/loft17/InstaStats.git
 - Guarda la informacion en una base de datos
 - Followers.
 - Followees.
-- Likes totales
-- Comentarios totales
+- Likes totales.
+- Comentarios totales.
 - Engagement.
+- Siguidores fantasmas.
 - No follow back (personas a las que sigues, pero estas no te siguen)
 
 ## Proximamente

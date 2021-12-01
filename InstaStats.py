@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 # python3 InstaStats.py kojiro_thedog --login kojiro_thedog
 
-import os, aux_funcs, argparse, re, menu_ayuda, printcolors
+import os, aux_funcs, argparse, re, printcolors
 import instaloader
 import mysql.connector
 
 from datetime import date
 from configparser import ConfigParser
 
-from scripts import nofollowback, showfollowees, showfollowers, medianumcomments, medianumlikes, totalnumfollowees, resumeninfoaccount, totalnumfollowers, showengagementBBDD, totalnumpost, totalnumcomments, totalnumlikes, version
+from scripts import menuayuda, nofollowback, showfollowees, showfollowers, medianumcomments, medianumlikes, totalnumfollowees, resumeninfoaccount, totalnumfollowers, showengagementBBDD, totalnumpost, totalnumcomments, totalnumlikes, version, ghostlastimg
 
 
 # ------------------------------------------------------------------------------------------------------------------------
@@ -170,16 +170,8 @@ def ReportGenerate():
 ##########################################################################################################################
 def test():
     profile = instaloader.Profile.from_username(L.context, PROFILE)
-    NumImange = 0
-    likes = set()
 
-    for post in profile.get_posts(2):
-        likes = likes | set(post.get_likes())
 
-        NumImange=NumImange + 1
-        print(str(NumImange), post.date)
-
-    print("22")
 
 
 
@@ -196,7 +188,7 @@ def main():
     option = args.option
 
     if(option == "ayuda"):
-        menu_ayuda.PrintUsage()
+        menuayuda.PrintUsage()
     
     elif(option == "version"):
         version.VersionApp()
@@ -234,19 +226,37 @@ def main():
     elif(option == "nofollowback"):
         nofollowback.NoFollowBack()
 
+
+
+    elif(option == "ghostlastimgfollowers"):
+        ghostlastimg.GhostLastImgFollowers()
+
+    elif(option == "ghostlastimgfollowees"):
+        ghostlastimg.GhostLastImgFollowees()
+
+    elif(option == "ghosttotalimgfollowees"):
+        ghostlastimg.GhostTotalImgFollowees()
+
+    elif(option == "ghosttotalimgfollowers"):
+        ghostlastimg.GhostTotalImgFollowers()
+
+
+
+
+
+
     elif(option == "resumeninfo"):
         resumeninfoaccount.ResumenInfoAccount()
 
-
     elif(option == "help"):
-        menu_ayuda.PrintUsage()
+        menuayuda.PrintUsage()
 
     elif(option == "test"):
         test()
         #totalnumfollowees.TotalNumFollowees()
 
     else:
-        menu_ayuda.PrintUsage()
+        menuayuda.PrintUsage()
 
     # Cerramos la base de datos antes de que se cierre la aplicacion
     ConnectBBDD.close()
