@@ -19,7 +19,7 @@ $ git clone https://github.com/loft17/InstaStats.git
 - No follow back (personas a las que sigues, pero estas no te siguen)
 
 ## Proximamente
-- Top Likers
+- Top Liker's
 
 ## Comentarios
 
