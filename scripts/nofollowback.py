@@ -72,7 +72,7 @@ def NoFollowBack():
     )
     ListFollowees = list((str(*ConnectShowFollowees.fetchone())).split(" "))
 
-    print(color.OKGREEN + "No Followback:" + color.ENDC)
+    print(color.OKGREEN + "\nNo Followback:" + color.ENDC)
     for AccountNoFollowBack in ListFollowees:
         if AccountNoFollowBack not in ListFollowers:
             TotalNoFollowBack=TotalNoFollowBack+1

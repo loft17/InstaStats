@@ -8,7 +8,7 @@ import mysql.connector
 from datetime import date
 from configparser import ConfigParser
 
-from scripts import menuayuda, nofollowback, showfollowees, showfollowers, medianumcomments, medianumlikes, totalnumfollowees, resumeninfoaccount, totalnumfollowers, showengagementBBDD, totalnumpost, totalnumcomments, totalnumlikes, version, ghostlastimg
+from scripts import menuayuda, nofollowback, showfollowees, showfollowers, medianumcomments, medianumlikes, totalnumfollowees, resumeninfoaccount, totalnumfollowers, showengagementBBDD, totalnumpost, totalnumcomments, totalnumlikes, ghostlastimg, detailslastpost
 
 
 # ------------------------------------------------------------------------------------------------------------------------
@@ -180,6 +180,8 @@ def test():
 
 
 
+
+
 ##########################################################################################################################
 # Ejecucion
 ##########################################################################################################################
@@ -226,8 +228,6 @@ def main():
     elif(option == "nofollowback"):
         nofollowback.NoFollowBack()
 
-
-
     elif(option == "ghostlastimgfollowers"):
         ghostlastimg.GhostLastImgFollowers()
 
@@ -240,8 +240,8 @@ def main():
     elif(option == "ghosttotalimgfollowers"):
         ghostlastimg.GhostTotalImgFollowers()
 
-
-
+    elif(option == "detailslastpost"):
+        detailslastpost.DetailsLastPost()
 
 
 
