@@ -51,14 +51,6 @@ ConnectBBDD=mysql.connector.connect(
 
 
 
-# ##########################################################################################################################
-# Mostramos la fecha del informe y la url de insta
-# ##########################################################################################################################
-def ShowInfgen():
-    print("\nInforme generado el", color.OKCYAN, today, color.ENDC)
-    print("url: https://www.instagram.com/" + PROFILE)
-    print("")
-
 
 
 
@@ -170,6 +162,32 @@ def ReportGenerate():
 
 
 
+
+
+
+##########################################################################################################################
+# TEST
+##########################################################################################################################
+def test():
+    profile = instaloader.Profile.from_username(L.context, PROFILE)
+    NumImange = 0
+    likes = set()
+
+    for post in profile.get_posts(2):
+        likes = likes | set(post.get_likes())
+
+        NumImange=NumImange + 1
+        print(str(NumImange), post.date)
+
+    print("22")
+
+
+
+
+
+
+
+
 ##########################################################################################################################
 # Ejecucion
 ##########################################################################################################################
@@ -224,7 +242,8 @@ def main():
         menu_ayuda.PrintUsage()
 
     elif(option == "test"):
-        totalnumfollowees.TotalNumFollowees()
+        test()
+        #totalnumfollowees.TotalNumFollowees()
 
     else:
         menu_ayuda.PrintUsage()
