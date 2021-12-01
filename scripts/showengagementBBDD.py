@@ -11,6 +11,7 @@ from configparser import ConfigParser
 from scripts import nofollowback, showfollowees, showfollowers, medianumcomments, medianumlikes, totalnumfollowees, resumeninfoaccount, totalnumfollowers, showengagementBBDD, totalnumpost, totalnumcomments, totalnumlikes
 
 
+
 # ------------------------------------------------------------------------------------------------------------------------
 # Variales
 # ------------------------------------------------------------------------------------------------------------------------
@@ -51,19 +52,12 @@ ConnectBBDD=mysql.connector.connect(
 
 
 # ##########################################################################################################################
-# Numero MEDIA LIKES por post
+# Mostrar el engadment actuales desde la base de datos
 # ##########################################################################################################################
-def MediaNumLikes():
-    ConnectShowMediaLikes=ConnectBBDD.cursor()
-    ConnectShowMediaLikes.execute(
-        "SELECT total_likes FROM ig_report WHERE date = %s AND account = %s", (today, PROFILE)
+def ShowEngagementBBDD():
+    ConnectShowEngagement=ConnectBBDD.cursor()
+    ConnectShowEngagement.execute(
+        "SELECT engagement FROM ig_report WHERE date = %s AND account = %s", (today, PROFILE)
     )
-    SqlShowMediaNumLikes = (int(*ConnectShowMediaLikes.fetchone()))
-    
-    ConnectShowMediaLikes.execute(
-        "SELECT total_post FROM ig_report WHERE date = %s AND account = %s", (today, PROFILE)
-    )
-    SqlShowMediaNumPost = (int(*ConnectShowMediaLikes.fetchone()))
-
-    NumMediaLikesPosts = round(SqlShowMediaNumLikes / SqlShowMediaNumPost, 2)
-    print("Media Likes por post: " + color.OKGREEN + str(NumMediaLikesPosts) + color.ENDC)
+    SqlShowEngagement = (str(*ConnectShowEngagement.fetchone()))
+    print("Engagement: " + color.OKGREEN + SqlShowEngagement + color.ENDC)

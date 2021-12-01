@@ -8,7 +8,8 @@ import mysql.connector
 from datetime import date
 from configparser import ConfigParser
 
-from scripts import nofollowback, showfollowees, showfollowers, medianumcomments, medianumlikes, totalnumfollowees
+from scripts import nofollowback, showfollowees, showfollowers, medianumcomments, medianumlikes, totalnumfollowees, resumeninfoaccount, totalnumfollowers, showengagementBBDD, totalnumpost, totalnumcomments, totalnumlikes, version
+
 
 # ------------------------------------------------------------------------------------------------------------------------
 # Variales
@@ -60,20 +61,9 @@ def ShowInfgen():
 
 
 
-# ##########################################################################################################################
-# Mostramos un menu de ayuda para ejecutar correctamente la aplicacion
-# ##########################################################################################################################
-def MainMenu():
-    menu_ayuda.PrintUsage()
-
 
 
 # ##########################################################################################################################
-# VERSION
-# ##########################################################################################################################
-def VersionApp():
-    print("Version del programa:", color.OKGREEN + (config.get('VERSION_APP', 'VersionApp')), "(", (config.get('VERSION_APP', 'FechaApp')), ")" )
-
 
 
 # ##########################################################################################################################
@@ -179,114 +169,6 @@ def ReportGenerate():
 
 
 
-# ##########################################################################################################################
-# Numero TOTAL LIKES
-# ##########################################################################################################################
-def TotalNumLikes():
-    ConnectShowTotalLikes=ConnectBBDD.cursor()
-    ConnectShowTotalLikes.execute(
-        "SELECT total_likes FROM ig_report WHERE date = %s AND account = %s", (today, PROFILE)
-    )
-    SqlShowTotalNumLikes = (str(*ConnectShowTotalLikes.fetchone()))
-    print("Total Likes: " + color.OKGREEN + SqlShowTotalNumLikes + color.ENDC)
-
-
-
-# ##########################################################################################################################
-# Numero TOTAL COMENTARIOS
-# ##########################################################################################################################
-def TotalNumComments():
-    ConnectShowTotalComments=ConnectBBDD.cursor()
-    ConnectShowTotalComments.execute(
-        "SELECT total_comments FROM ig_report WHERE date = %s AND account = %s", (today, PROFILE)
-    )
-    SqlShowTotalNumComments = (str(*ConnectShowTotalComments.fetchone()))
-    print("Total Comentarios: " + color.OKGREEN + SqlShowTotalNumComments + color.ENDC)
-
-
-
-# ##########################################################################################################################
-# Numero TOTAL IMAGENES subidas
-# ##########################################################################################################################
-def TotalNumPost():
-    ConnectShowTotalComments=ConnectBBDD.cursor()
-    ConnectShowTotalComments.execute(
-        "SELECT total_post FROM ig_report WHERE date = %s AND account = %s", (today, PROFILE)
-    )
-    SqlShowTotalNumComments = (str(*ConnectShowTotalComments.fetchone()))
-    print("Total imagenes: " + color.OKGREEN + SqlShowTotalNumComments + color.ENDC)
-
-
-
-# ##########################################################################################################################
-# Mostrar el engadment actuales desde la base de datos
-# ##########################################################################################################################
-def ShowEngagementBBDD():
-    ConnectShowEngagement=ConnectBBDD.cursor()
-    ConnectShowEngagement.execute(
-        "SELECT engagement FROM ig_report WHERE date = %s AND account = %s", (today, PROFILE)
-    )
-    SqlShowEngagement = (str(*ConnectShowEngagement.fetchone()))
-    print("Engagement: " + color.OKGREEN + SqlShowEngagement + color.ENDC)
-
-
-
-# ##########################################################################################################################
-# Numero TOTAL Followers
-# ##########################################################################################################################
-def TotalNumFollowers():
-    ConnectShowTotalFollowers=ConnectBBDD.cursor()
-    ConnectShowTotalFollowers.execute(
-        "SELECT count_followers FROM ig_report WHERE date = %s AND account = %s", (today, PROFILE)
-    )
-    SqlShowTotalNumFollowers = (str(*ConnectShowTotalFollowers.fetchone()))
-    print("Total Followers: " + color.OKGREEN + SqlShowTotalNumFollowers + color.ENDC)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
-
-
-
-
-
-
-
-
-
-# ##########################################################################################################################
-# Resumen Info cuenta
-# ##########################################################################################################################
-def ResumenInfoAccount():
-    ShowInfgen()
-    TotalNumFollowers()
-    TotalNumFollowees()
-    TotalNumLikes()
-    TotalNumComments()
-    TotalNumPost()
-    ShowEngagementBBDD()
-    MediaNumLikes()
-    MediaNumComments()
-    print("")
-
-
 
 ##########################################################################################################################
 # Ejecucion
@@ -296,25 +178,25 @@ def main():
     option = args.option
 
     if(option == "ayuda"):
-        MainMenu()
+        menu_ayuda.PrintUsage()
     
     elif(option == "version"):
-        VersionApp()
+        version.VersionApp()
 
     elif(option == "numtotallikes"):
-        TotalNumLikes()
+        totalnumlikes.TotalNumLikes()
 
     elif(option == "numtotalcomments"):
-        TotalNumComments()
+        totalnumcomments.TotalNumComments()
 
     elif(option == "numtotalpost"):
-        TotalNumPost()
+        totalnumpost.TotalNumPost()
 
     elif(option == "engagement"):
-        ShowEngagementBBDD()
+        showengagementBBDD.ShowEngagementBBDD()
 
     elif(option == "numtotalfollowers"):
-        TotalNumFollowers()
+        totalnumfollowers.TotalNumFollowers()
 
     elif(option == "numtotalfollowees"):
         totalnumfollowees.TotalNumFollowees()
@@ -334,22 +216,18 @@ def main():
     elif(option == "nofollowback"):
         nofollowback.NoFollowBack()
 
-
     elif(option == "resumeninfo"):
-        ResumenInfoAccount()
-
-
-
+        resumeninfoaccount.ResumenInfoAccount()
 
 
     elif(option == "help"):
-        MainMenu()
+        menu_ayuda.PrintUsage()
 
     elif(option == "test"):
         totalnumfollowees.TotalNumFollowees()
 
     else:
-        MainMenu()
+        menu_ayuda.PrintUsage()
 
     # Cerramos la base de datos antes de que se cierre la aplicacion
     ConnectBBDD.close()

@@ -8,6 +8,9 @@ import mysql.connector
 from datetime import date
 from configparser import ConfigParser
 
+from scripts import nofollowback, showfollowees, showfollowers, medianumcomments, medianumlikes, totalnumfollowees, resumeninfoaccount, totalnumfollowers, showengagementBBDD, totalnumpost, totalnumcomments, totalnumlikes
+
+
 
 # ------------------------------------------------------------------------------------------------------------------------
 # Variales

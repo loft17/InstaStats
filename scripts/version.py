@@ -39,31 +39,10 @@ L.load_session_from_file(USER)
 # Variables para colorear el texto en consola
 color = printcolors.bcolors()
 
-# ##########################################################################################################################
-# conexión BBDD
-# ##########################################################################################################################
-ConnectBBDD=mysql.connector.connect(
-	host =      (config.get('MYSQL', 'Server')),
-	user =      (config.get('MYSQL', 'Username')),
-	passwd =    (config.get('MYSQL', 'Password')),
-	database =  (config.get('MYSQL', 'Database'))
-)
 
 
+# VERSION
 # ##########################################################################################################################
-# Numero MEDIA LIKES por post
-# ##########################################################################################################################
-def MediaNumLikes():
-    ConnectShowMediaLikes=ConnectBBDD.cursor()
-    ConnectShowMediaLikes.execute(
-        "SELECT total_likes FROM ig_report WHERE date = %s AND account = %s", (today, PROFILE)
-    )
-    SqlShowMediaNumLikes = (int(*ConnectShowMediaLikes.fetchone()))
-    
-    ConnectShowMediaLikes.execute(
-        "SELECT total_post FROM ig_report WHERE date = %s AND account = %s", (today, PROFILE)
-    )
-    SqlShowMediaNumPost = (int(*ConnectShowMediaLikes.fetchone()))
+def VersionApp():
+    print("Version del programa:", color.OKGREEN + (config.get('VERSION_APP', 'VersionApp')), "(", (config.get('VERSION_APP', 'FechaApp')), ")" )
 
-    NumMediaLikesPosts = round(SqlShowMediaNumLikes / SqlShowMediaNumPost, 2)
-    print("Media Likes por post: " + color.OKGREEN + str(NumMediaLikesPosts) + color.ENDC)

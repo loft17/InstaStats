@@ -51,19 +51,17 @@ ConnectBBDD=mysql.connector.connect(
 
 
 # ##########################################################################################################################
-# Numero MEDIA LIKES por post
+# Resumen Info cuenta
 # ##########################################################################################################################
-def MediaNumLikes():
-    ConnectShowMediaLikes=ConnectBBDD.cursor()
-    ConnectShowMediaLikes.execute(
-        "SELECT total_likes FROM ig_report WHERE date = %s AND account = %s", (today, PROFILE)
-    )
-    SqlShowMediaNumLikes = (int(*ConnectShowMediaLikes.fetchone()))
-    
-    ConnectShowMediaLikes.execute(
-        "SELECT total_post FROM ig_report WHERE date = %s AND account = %s", (today, PROFILE)
-    )
-    SqlShowMediaNumPost = (int(*ConnectShowMediaLikes.fetchone()))
-
-    NumMediaLikesPosts = round(SqlShowMediaNumLikes / SqlShowMediaNumPost, 2)
-    print("Media Likes por post: " + color.OKGREEN + str(NumMediaLikesPosts) + color.ENDC)
+def ResumenInfoAccount():
+	print("\nInforme generado el", color.OKCYAN, today, color.ENDC)
+	print("url: https://www.instagram.com/" + PROFILE)
+	print("")
+	totalnumpost.TotalNumPost()
+	totalnumlikes.TotalNumLikes()
+	totalnumcomments.TotalNumComments()
+	totalnumfollowers.TotalNumFollowers()
+	totalnumfollowees.TotalNumFollowees()
+	medianumlikes.MediaNumLikes()
+	medianumcomments.MediaNumComments()
+	showengagementBBDD.ShowEngagementBBDD()
