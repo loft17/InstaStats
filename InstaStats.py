@@ -11,7 +11,7 @@ from configparser import ConfigParser
 from scripts import version, menuayuda, nofollowback, showfollowees, showfollowers, medianumcomments
 from scripts import medianumlikes, totalnumfollowees, resumeninfoaccount, totalnumfollowers
 from scripts import showengagementBBDD, totalnumpost, totalnumcomments, totalnumlikes, ghostlastimg
-from scripts import detailslastpost, seguidoresperdidos, reportgenerate
+from scripts import detailslastpost, seguidoresperdidos, reportgenerate, test
 
 # ------------------------------------------------------------------------------------------------------------------------
 # Variales
@@ -82,7 +82,7 @@ def ReportStatus():
 # Ejecucion
 ##########################################################################################################################
 def main():
-    ReportStatus()
+    #ReportStatus()
     option = args.option
 
     if(option == "ayuda"):
@@ -144,6 +144,9 @@ def main():
 
     elif(option == "seguidoresperdidos"):
         seguidoresperdidos.SeguidoresPerdidos()
+
+    elif(option == "test"):
+        test.Test()
 
     elif(option == "help"):
         menuayuda.PrintUsage()

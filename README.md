@@ -5,6 +5,7 @@ Exportación de los principales datos publicos de instagram.
 ```
 $ pip3 install instaloader
 $ pip install configparser
+$ pip install flask
 $ git clone https://github.com/loft17/InstaStats.git
 ```
 
@@ -23,6 +24,7 @@ $ git clone https://github.com/loft17/InstaStats.git
 ## Proximamente
 - Top Liker's
 - Seguidores ganados
+- Informe en template
 
 
 

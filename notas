@@ -1,5 +1,9 @@
 DELETE FROM `ig_report` WHERE `date` = "2021-12-02"
 
+flask 
+https://www.it-swarm-es.com/es/python/como-enviar-datos-desde-flask-la-plantilla-html/833474152/
+https://es.stackoverflow.com/questions/289033/cómo-puedo-pasar-datos-de-python-a-html
+https://naysan.ca/2020/11/28/flask-101-use-html-templates-send-variables/
 
 	print("Username: ", profile.username)
 	print("UserID: ", profile.userid)
