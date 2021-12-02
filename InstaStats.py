@@ -8,8 +8,10 @@ import mysql.connector
 from datetime import date
 from configparser import ConfigParser
 
-from scripts import version, menuayuda, nofollowback, showfollowees, showfollowers, medianumcomments, medianumlikes, totalnumfollowees, resumeninfoaccount, totalnumfollowers, showengagementBBDD, totalnumpost, totalnumcomments, totalnumlikes, ghostlastimg, detailslastpost
-
+from scripts import version, menuayuda, nofollowback, showfollowees, showfollowers, medianumcomments
+from scripts import medianumlikes, totalnumfollowees, resumeninfoaccount, totalnumfollowers
+from scripts import showengagementBBDD, totalnumpost, totalnumcomments, totalnumlikes, ghostlastimg
+from scripts import detailslastpost, seguidoresperdidos, reportgenerate
 
 # ------------------------------------------------------------------------------------------------------------------------
 # Variales
@@ -29,10 +31,6 @@ L = instaloader.Instaloader()
 #PROFILE = USER
 USER = args.login
 PROFILE = args.user
-
-
-
-
 L.load_session_from_file(USER)
 #profile = instaloader.Profile.from_username(L.context, PROFILE)
 
@@ -52,12 +50,6 @@ ConnectBBDD=mysql.connector.connect(
 
 
 
-
-
-
-# ##########################################################################################################################
-
-
 # ##########################################################################################################################
 # Comprobamos que no exite un reporte anterior para no volver a generarlo
 # ##########################################################################################################################
@@ -70,106 +62,10 @@ def ReportStatus():
     
     if(ConsultaSql == None):
         # No se ha generado anteriormente
-        ReportGenerate()
+        reportgenerate.ReportGenerate()
     #else:
     #    print("Ya existe un reporte generado anteriormente")
 
-
-# ##########################################################################################################################
-# Generamos un reporte para guardar en la base de datos
-# ##########################################################################################################################
-def ReportGenerate():
-    profile = instaloader.Profile.from_username(L.context, PROFILE)
-
-    # ----------------------------------------------------------------------------------------------------------------------
-    # Variables a 0
-    # ----------------------------------------------------------------------------------------------------------------------    
-    total_num_likes = 0
-    total_num_comments = 0
-    total_num_posts = 0
-    total_num_followers = 0
-    total_num_followees = 0
-    listado_followees = []
-    listado_followers = []
-
-
-
-    # ----------------------------------------------------------------------------------------------------------------------
-    # Conseguimos el Engagement, likes, coments, post actual y lo guardamos en la base de datos
-    # ----------------------------------------------------------------------------------------------------------------------
-    num_followers = profile.followers
-    for post in profile.get_posts():
-        total_num_likes += post.likes
-        total_num_comments += post.comments
-        total_num_posts += 1
-
-    engagement = round((float(total_num_likes + total_num_comments) / (num_followers * total_num_posts) * 100), 2)
-    #print(engagement)
-    
-
-
-    # ----------------------------------------------------------------------------------------------------------------------
-    # Conseguimos los get_followees que nos siguien
-    # ----------------------------------------------------------------------------------------------------------------------
-    followees = profile.get_followees()
-    for followee in followees:
-        total_num_followees=total_num_followees+1
-        listado_followees.append(followee.username)
-        #print(followee.username)
-
-    # ----------------------------------------------------------------------------------------------------------------------
-    # Conseguimos los get_followers que nos siguien
-    # ----------------------------------------------------------------------------------------------------------------------
-    followers = profile.get_followers()
-    for follower in followers:
-        total_num_followers=total_num_followers+1
-        listado_followers.append(follower.username)
-        #print(follower.username)
-
-
-
-    # ----------------------------------------------------------------------------------------------------------------------
-    # Convertimos la lista en STR y eliminamos caracteres innecesarios para la base de datos
-    # ----------------------------------------------------------------------------------------------------------------------
-    characters = ",'[]"
-    srt_followees = str(listado_followees)
-    srt_followers = str(listado_followers)
-    for x in range(len(characters)):
-        srt_followees = srt_followees.replace(characters[x],"")
-        srt_followers = srt_followers.replace(characters[x],"")
-
-
-
-    # ----------------------------------------------------------------------------------------------------------------------
-    # Sacamos el ID del usuario
-    # ----------------------------------------------------------------------------------------------------------------------
-    userid_account = re.sub('[^A-Za-z0-9]+', '', (str(profile).split("(", 1)[1]))
-
-
-
-    # ----------------------------------------------------------------------------------------------------------------------
-    # Guardamos toda la informacion en la base de datos
-    # ----------------------------------------------------------------------------------------------------------------------
-    ConnectInfo=ConnectBBDD.cursor()
-    InsertInfo="insert into ig_report(date, account, userid, followers, followees, count_followers, count_followees, total_likes, total_comments, total_post, engagement) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-    datos=(today, PROFILE, userid_account, srt_followers, srt_followees, total_num_followers, total_num_followees, total_num_likes, total_num_comments, total_num_posts, engagement)
-    ConnectInfo.execute(InsertInfo, datos)
-    
-   
-    # Guardamos la BBDD y la cerramos --------------------------------------------------------------------------------------
-    ConnectBBDD.commit()
-
-
-
-
-
-
-
-##########################################################################################################################
-# TEST
-##########################################################################################################################
-def test():
-    profile = instaloader.Profile.from_username(L.context, PROFILE)
 
 
 
@@ -243,17 +139,14 @@ def main():
     elif(option == "detailslastpost"):
         detailslastpost.DetailsLastPost()
 
-
-
     elif(option == "resumeninfo"):
         resumeninfoaccount.ResumenInfoAccount()
 
+    elif(option == "seguidoresperdidos"):
+        seguidoresperdidos.SeguidoresPerdidos()
+
     elif(option == "help"):
         menuayuda.PrintUsage()
-
-    elif(option == "test"):
-        test()
-        #totalnumfollowees.TotalNumFollowees()
 
     else:
         menuayuda.PrintUsage()

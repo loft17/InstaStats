@@ -34,7 +34,7 @@ PROFILE = args.user
 
 
 L.load_session_from_file(USER)
-#profile = instaloader.Profile.from_username(L.context, PROFILE)
+profile = instaloader.Profile.from_username(L.context, PROFILE)
 
 # Variables para colorear el texto en consola
 color = printcolors.bcolors()
@@ -55,7 +55,7 @@ ConnectBBDD=mysql.connector.connect(
 # ##########################################################################################################################
 def ResumenInfoAccount():
 	print("\nInforme generado el", color.OKCYAN, today, color.ENDC)
-	print("url: https://www.instagram.com/" + PROFILE)
+	print("https://www.instagram.com/" + PROFILE)
 	print("")
 	totalnumpost.TotalNumPost()
 	totalnumlikes.TotalNumLikes()

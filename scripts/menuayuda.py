@@ -2,13 +2,13 @@
 # python3 InstaStats.py kojiro_thedog --login kojiro_thedog
 
 import os, aux_funcs, argparse, re, printcolors
-import instaloader
-import mysql.connector
+#import instaloader
+#import mysql.connector
 
-from datetime import date
-from configparser import ConfigParser
+#from datetime import date
+#from configparser import ConfigParser
 
-from scripts import menuayuda, nofollowback, showfollowees, showfollowers, medianumcomments, medianumlikes, totalnumfollowees, resumeninfoaccount, totalnumfollowers, showengagementBBDD, totalnumpost, totalnumcomments, totalnumlikes, version, ghostlastimg
+#from scripts import menuayuda, nofollowback, showfollowees, showfollowers, medianumcomments, medianumlikes, totalnumfollowees, resumeninfoaccount, totalnumfollowers, showengagementBBDD, totalnumpost, totalnumcomments, totalnumlikes, version, ghostlastimg
 
 
 
@@ -19,8 +19,11 @@ def PrintUsage():
     #os.system('clear')    
     print("Usage: \n python3 main.py -u USERNAME -l LOGIN -o OPTIONS")
     print("\nOptions: ")
+    
     print("\n- reporte \t\t\t\t\tGeneramos un reporte con los datos de nuestra cuenta")
     print("\n- resumeninfo \t\t\t\t\tMuestra un resumen general de la cuenta")
+    print("\n- detailslastpost \t\t\t\tMuestra un resumen general de las ultimas imagenes")
+
     print("\n- followers \t\t\t\t\tMuestra las de cuentas que te siguen y el nombre de estas")
     print("\n- followees \t\t\t\t\tMuestra las  cuentas que sigues y el nombre de estas")
     print("\n- nofollowback \t\t\t\t\tMostramos las cuentas que seguimos, pero estas no\n\t\t\t\t\t\tnos siguen a nosotros")
@@ -39,6 +42,9 @@ def PrintUsage():
     print("\n- ghostlastimgfollowers\t\t\t\tMuestra tus seguidores que no han dado like en tus ultimas\n\t\t\t\t\t\t20 imagenes")
     print("\n- ghosttotalimgfollowees\t\t\tMuestra tus seguidores que no han dado like en ninguna de tus\n\t\t\t\t\t\timagenes")
     print("\n- ghosttotalimgfollowers\t\t\tMuestra a quien sigues que no han dado like en ninguna de tus\n\t\t\t\t\t\timagenes")
+
+    print("\n- seguidoresperdidos\t\t\tMuestra tus seguidores peridos")
+
 
     print("\n- version\t\t\t\t\tMuestra la version del programa")
     print("\n- ayuda / help \t\t\t\t\tMuestra las opciones disponibles")
