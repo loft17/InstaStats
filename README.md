@@ -16,13 +16,14 @@ $ git clone https://github.com/loft17/InstaStats.git
 - Comentarios totales.
 - Engagement.
 - Siguidores fantasmas.
+- Seguidores perdidos
 - No follow back. (personas a las que sigues, pero estas no te siguen)
 - Resumen 10 imagenes
 
 ## Proximamente
 - Top Liker's
 - Seguidores ganados
-- Seguidores perdidos
+
 
 
 ## Comentarios

@@ -176,7 +176,7 @@ def ReportGenerate():
     # Guardamos toda la informacion en la base de datos
     # ----------------------------------------------------------------------------------------------------------------------
     ConnectInfo=ConnectBBDD.cursor()
-    InsertInfo="insert into ig_report(date, account, userid, followers, followees, unfollowers, count_followers, count_followees, total_likes, total_comments, total_post, engagement) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+    InsertInfo="insert into ig_report(date, account, userid, followers, followees, unfollowers, count_followers, count_followees, total_likes, total_comments, total_post, engagement) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
     datos=(today, PROFILE, userid_account, srt_followers, srt_followees, srt_unfollowers, total_num_followers, total_num_followees, total_num_likes, total_num_comments, total_num_posts, engagement)
     ConnectInfo.execute(InsertInfo, datos)
     
