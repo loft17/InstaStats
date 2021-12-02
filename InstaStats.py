@@ -8,7 +8,7 @@ import mysql.connector
 from datetime import date
 from configparser import ConfigParser
 
-from scripts import menuayuda, nofollowback, showfollowees, showfollowers, medianumcomments, medianumlikes, totalnumfollowees, resumeninfoaccount, totalnumfollowers, showengagementBBDD, totalnumpost, totalnumcomments, totalnumlikes, ghostlastimg, detailslastpost
+from scripts import version, menuayuda, nofollowback, showfollowees, showfollowers, medianumcomments, medianumlikes, totalnumfollowees, resumeninfoaccount, totalnumfollowers, showengagementBBDD, totalnumpost, totalnumcomments, totalnumlikes, ghostlastimg, detailslastpost
 
 
 # ------------------------------------------------------------------------------------------------------------------------

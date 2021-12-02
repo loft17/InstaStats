@@ -22,6 +22,7 @@ statusvar = "0"
 config = ConfigParser()
 config.read("config.ini")
 
+NumImangeConf = str(config.get('NUM_CHECK_IMG', 'NumImangeConf'))
 
 # Variables para conectar a Instagram
 L = instaloader.Instaloader()
@@ -30,9 +31,6 @@ L = instaloader.Instaloader()
 USER = args.login
 PROFILE = args.user
 
-
-
-
 L.load_session_from_file(USER)
 #profile = instaloader.Profile.from_username(L.context, PROFILE)
 
@@ -40,8 +38,20 @@ L.load_session_from_file(USER)
 color = printcolors.bcolors()
 
 
+# ##########################################################################################################################
+# conexión BBDD
+# ##########################################################################################################################
+ConnectBBDD=mysql.connector.connect(
+	host =      (config.get('MYSQL', 'Server')),
+	user =      (config.get('MYSQL', 'Username')),
+	passwd =    (config.get('MYSQL', 'Password')),
+	database =  (config.get('MYSQL', 'Database'))
+)
 
-# VERSION
+
+
+# ##########################################################################################################################
+# EJECUCION
 # ##########################################################################################################################
 def DetailsLastPost():
     profile = instaloader.Profile.from_username(L.context, PROFILE)
@@ -50,31 +60,27 @@ def DetailsLastPost():
 
     # 2021-11-30 18:27:27
     #  ID_IMG - POSTED ON - CAPTION - Likes - Comments
-    print("Nº\t URL\t Posted on\t Likes\t Comentarios")
+    print("\nNº\t URL\t\t\t\t\t\t Posted on\t Likes\t Comentarios\t Engadment")
 
+    # ----------------------------------------------------------------------------------------------------------------------
+    # Conseguimos el Engagement, likes, coments, post actual y lo guardamos en la base de datos
+    # ----------------------------------------------------------------------------------------------------------------------
+    num_followers = profile.followers
 
     # Conseguimos todos los likes de las ultimas 10 imagenes
     for post in profile.get_posts():
         likes = "0"
-        if(NumImange == 2):
+        if(NumImange == 10):
             break
         else:
             # Añadimos 1 al contador de imagenes
             NumImange = NumImange + 1
-
-            #print(NumImange, "\t", 
-            #    datetime.strptime(str(post.date_utc), "%Y-%m-%d %H:%M:%S").strftime("%d-%m-%Y"),"\t", 
-            #    post.likes, "\t", 
-            #    post.comments)
-
-            print(NumImange, "\t", URL_IMGINS,post.shortcode)
-
-    #print("obteniendo foloweXs")
-    # Obteniendo seguidores del perfil
-    #followees = set(profile.get_followees())
-
-    # Mostramos la gente que no hizo like
-    #ghosts = followees - likes
-    #print("\n" + color.OKGREEN + "Mostramos los followees fantasmas:" + color.ENDC)
-    #for ghost in ghosts:
-    #    print(ghost.username)
+            engagement = round((float(post.likes + post.comments) / num_followers * 100), 2)
+            
+            print(NumImange, "\t",
+                URL_IMGINS+post.shortcode, "\t",
+                datetime.strptime(str(post.date_utc), "%Y-%m-%d %H:%M:%S").strftime("%d-%m-%Y"),"\t",
+                post.likes, "\t",
+                post.comments, "\t", "\t",
+                engagement
+            )
