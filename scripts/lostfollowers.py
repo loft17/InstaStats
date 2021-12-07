@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# python3 InstaStats.py kojiro_thedog --login kojiro_thedog
-
 import os, aux_funcs, argparse, re, printcolors
 import instaloader
 import mysql.connector
@@ -8,25 +5,18 @@ import mysql.connector
 from datetime import date, timedelta
 from configparser import ConfigParser
 
-from scripts import nofollowback, showfollowees, showfollowers, medianumcomments, medianumlikes, totalnumfollowees, resumeninfoaccount, totalnumfollowers, showengagementBBDD, totalnumpost, totalnumcomments, totalnumlikes
-
 
 # ------------------------------------------------------------------------------------------------------------------------
 # Variales
 # ------------------------------------------------------------------------------------------------------------------------
 today = date.today()
 args = aux_funcs.get_args()
-statusvar = "0"
 
 # Fichero de configuracion.
 config = ConfigParser()
 config.read("config.ini")
 
 
-# Variables para conectar a Instagram
-L = instaloader.Instaloader()
-#USER = args.user
-#PROFILE = USER
 USER = args.login
 PROFILE = args.user
 
@@ -34,9 +24,6 @@ PROFILE = args.user
 Lista1 = ["aaa", "bbb", "ccc", "ddd"]
 Lista2 = ["aaa", "bbb", "ccc"]
 Lista3 = ["aaa", "bbb", "ddd"]
-
-L.load_session_from_file(USER)
-#profile = instaloader.Profile.from_username(L.context, PROFILE)
 
 # Variables para colorear el texto en consola
 color = printcolors.bcolors()
@@ -62,8 +49,12 @@ ConnectBBDD=mysql.connector.connect(
 # Numero TOTAL COMENTARIOS
 # ##########################################################################################################################
 def SeguidoresPerdidos():
-    profile = instaloader.Profile.from_username(L.context, PROFILE)
-    print("Seguidores perdidos:\n")
+    # Variables para conectar a Instagram
+    L = instaloader.Instaloader()
+    L.load_session_from_file(args.login)
+    profile = instaloader.Profile.from_username(L.context, args.user)
+
+    print("\nSeguidores perdidos:")
 
     x = 1
     DiaMenos = 1

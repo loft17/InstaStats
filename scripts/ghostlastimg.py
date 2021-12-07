@@ -119,6 +119,7 @@ def TotalFollowees():
     L = instaloader.Instaloader()
     L.load_session_from_file(args.login)
     profile = instaloader.Profile.from_username(L.context, args.user)
+    
     NumImange = 0
     likes = set()
 
@@ -137,3 +138,4 @@ def TotalFollowees():
     print("\n" + color.OKGREEN + "Mostramos los followees fantasmas:" + color.ENDC)
     for ghost in ghosts:
         print(ghost.username)
+

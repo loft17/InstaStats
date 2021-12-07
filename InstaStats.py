@@ -16,7 +16,7 @@ from configparser import ConfigParser
 from scripts import version, menuayuda
 from scripts import reportgenerate, detailslastpost, showtotalnum, medianum, resumeninfoaccount
 from scripts import showfollowers, showfollowees
-from scripts import nofollowback, ghostlastimg
+from scripts import nofollowback, ghostlastimg, lostfollowers
 
 
 # ------------------------------------------------------------------------------------------------------------------------
@@ -147,11 +147,23 @@ def main():
 
 
 #..........................................................................
+    elif(option == "seguidoreperdidos"):
+        lostfollowers.SeguidoresPerdidos()
+
+
+#..........................................................................
     elif(option == "resumeninfo"):
         resumeninfoaccount.ResumenInfoAccount()
-#
-#    elif(option == "seguidoresperdidos"):
-#        seguidoresperdidos.SeguidoresPerdidos()
+
+
+#..........................................................................
+
+    elif(option == "test"):
+        nofollowback.NoFollowBackExt()
+
+
+
+
 
 
 #..........................................................................
