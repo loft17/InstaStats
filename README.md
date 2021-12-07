@@ -19,7 +19,7 @@ $ git clone https://github.com/loft17/InstaStats.git
 - Siguidores fantasmas.
 - No follow back. (personas a las que sigues, pero estas no te siguen)
 - Resumen 10 imagenes
-asd
+
 ## Proximamente
 - Top Liker's
 - Seguidores ganados
@@ -33,3 +33,4 @@ asd
 - web: [www.joseromera.net](https://www.joseromera.net)
 
 ## License
+aa
