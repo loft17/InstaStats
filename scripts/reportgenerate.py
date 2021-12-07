@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# python3 InstaStats.py kojiro_thedog --login kojiro_thedog
 
 import os, aux_funcs, argparse, re, printcolors
 import instaloader
@@ -8,10 +6,6 @@ import mysql.connector
 from datetime import date, timedelta
 from configparser import ConfigParser
 
-from scripts import version, menuayuda, nofollowback, showfollowees, showfollowers, medianumcomments
-from scripts import medianumlikes, totalnumfollowees, resumeninfoaccount, totalnumfollowers
-from scripts import showengagementBBDD, totalnumpost, totalnumcomments, totalnumlikes, ghostlastimg
-from scripts import detailslastpost, seguidoresperdidos
 
 # ------------------------------------------------------------------------------------------------------------------------
 # Variales
@@ -26,16 +20,14 @@ config.read("config.ini")
 
 
 # Variables para conectar a Instagram
-L = instaloader.Instaloader()
-#USER = args.user
-#PROFILE = USER
-USER = args.login
-PROFILE = args.user
+#L = instaloader.Instaloader()
+#USER = args.login
+#PROFILE = args.user
 
 
 
 
-L.load_session_from_file(USER)
+
 #profile = instaloader.Profile.from_username(L.context, PROFILE)
 
 # Variables para colorear el texto en consola
@@ -58,7 +50,10 @@ ConnectBBDD=mysql.connector.connect(
 # Generamos un reporte para guardar en la base de datos
 # ##########################################################################################################################
 def ReportGenerate():
-    profile = instaloader.Profile.from_username(L.context, PROFILE)
+    # Conexion Instagram
+    L = instaloader.Instaloader()
+    L.load_session_from_file(args.login)
+    profile = instaloader.Profile.from_username(L.context, args.user)
 
     # ----------------------------------------------------------------------------------------------------------------------
     # Variables a 0
@@ -120,7 +115,7 @@ def ReportGenerate():
         # Buscamos el registro mas actual que no sea de hoy.
         ConnectReportStatus=ConnectBBDD.cursor()
         ConnectReportStatus.execute(
-            "SELECT date FROM ig_report WHERE date = %s AND account = %s", (DateSearch, PROFILE)
+            "SELECT date FROM ig_report WHERE date = %s AND account = %s", (DateSearch, args.user)
         )
         ConsultaSql = ConnectReportStatus.fetchone()
 
@@ -131,7 +126,7 @@ def ReportGenerate():
             # Sacamos los followers del registro mas actual que no sea de hoy.
             ConnectShowFollowers=ConnectBBDD.cursor()
             ConnectShowFollowers.execute(
-                "SELECT followers FROM ig_report WHERE date = %s AND account = %s", (DateSearch, PROFILE)
+                "SELECT followers FROM ig_report WHERE date = %s AND account = %s", (DateSearch, args.user)
             )
             ListFollowersOld = list((str(*ConnectShowFollowers.fetchone())).split(" "))
 
@@ -177,7 +172,7 @@ def ReportGenerate():
     # ----------------------------------------------------------------------------------------------------------------------
     ConnectInfo=ConnectBBDD.cursor()
     InsertInfo="insert into ig_report(date, account, userid, followers, followees, unfollowers, count_followers, count_followees, total_likes, total_comments, total_post, engagement) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-    datos=(today, PROFILE, userid_account, srt_followers, srt_followees, srt_unfollowers, total_num_followers, total_num_followees, total_num_likes, total_num_comments, total_num_posts, engagement)
+    datos=(today, args.user, userid_account, srt_followers, srt_followees, srt_unfollowers, total_num_followers, total_num_followees, total_num_likes, total_num_comments, total_num_posts, engagement)
     ConnectInfo.execute(InsertInfo, datos)
     
    

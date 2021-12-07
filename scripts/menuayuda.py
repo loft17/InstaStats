@@ -1,17 +1,3 @@
-#!/usr/bin/env python3
-# python3 InstaStats.py kojiro_thedog --login kojiro_thedog
-
-import os, aux_funcs, argparse, re, printcolors
-#import instaloader
-#import mysql.connector
-
-#from datetime import date
-#from configparser import ConfigParser
-
-#from scripts import menuayuda, nofollowback, showfollowees, showfollowers, medianumcomments, medianumlikes, totalnumfollowees, resumeninfoaccount, totalnumfollowers, showengagementBBDD, totalnumpost, totalnumcomments, totalnumlikes, version, ghostlastimg
-
-
-
 # ------------------------------------------------------------------------------------------------------------------------
 # Mostramos un menu de ayuda para ejecutar correctamente la aplicacion
 # ------------------------------------------------------------------------------------------------------------------------

@@ -8,31 +8,26 @@ import mysql.connector
 from datetime import date
 from configparser import ConfigParser
 
-from scripts import version, menuayuda, nofollowback, showfollowees, showfollowers, medianumcomments
-from scripts import medianumlikes, totalnumfollowees, resumeninfoaccount, totalnumfollowers
-from scripts import showengagementBBDD, totalnumpost, totalnumcomments, totalnumlikes, ghostlastimg
-from scripts import detailslastpost, seguidoresperdidos, reportgenerate, test
+#from scripts import , , , 
+#from scripts import , , resumeninfoaccount
+#from scripts import , , , , ghostlastimg
+#from scripts import , seguidoresperdidos, , test
+
+from scripts import version, menuayuda
+from scripts import reportgenerate, detailslastpost, showtotalnum, medianum, resumeninfoaccount
+from scripts import showfollowers, showfollowees
+from scripts import nofollowback, ghostlastimg
+
 
 # ------------------------------------------------------------------------------------------------------------------------
 # Variales
 # ------------------------------------------------------------------------------------------------------------------------
 today = date.today()
 args = aux_funcs.get_args()
-statusvar = "0"
 
 # Fichero de configuracion.
 config = ConfigParser()
 config.read("config.ini")
-
-
-# Variables para conectar a Instagram
-L = instaloader.Instaloader()
-#USER = args.user
-#PROFILE = USER
-USER = args.login
-PROFILE = args.user
-L.load_session_from_file(USER)
-#profile = instaloader.Profile.from_username(L.context, PROFILE)
 
 # Variables para colorear el texto en consola
 color = printcolors.bcolors()
@@ -48,15 +43,13 @@ ConnectBBDD=mysql.connector.connect(
 )
 
 
-
-
 # ##########################################################################################################################
 # Comprobamos que no exite un reporte anterior para no volver a generarlo
 # ##########################################################################################################################
 def ReportStatus():
     ConnectReportStatus=ConnectBBDD.cursor()
     ConnectReportStatus.execute(
-        "SELECT account FROM ig_report WHERE date = %s AND account = %s", (today, PROFILE)
+        "SELECT account FROM ig_report WHERE date = %s AND account = %s", (today, args.user)
     )
     ConsultaSql = ConnectReportStatus.fetchone()  
     
@@ -74,83 +67,94 @@ def ReportStatus():
 
 
 
-
-
-
-
 ##########################################################################################################################
 # Ejecucion
 ##########################################################################################################################
 def main():
-    #ReportStatus()
+    ReportStatus()
     option = args.option
 
     if(option == "ayuda"):
         menuayuda.PrintUsage()
-    
+
+    elif(option == "help"):
+        menuayuda.PrintUsage()    
+
     elif(option == "version"):
         version.VersionApp()
 
+#..........................................................................
+    elif(option == "detailslastpost"):
+        detailslastpost.DetailsLastPost()
+
+
+
+#..........................................................................
+    elif(option == "numtotalpost"):
+        showtotalnum.Post()
+
     elif(option == "numtotallikes"):
-        totalnumlikes.TotalNumLikes()
+        showtotalnum.Likes()
 
     elif(option == "numtotalcomments"):
-        totalnumcomments.TotalNumComments()
-
-    elif(option == "numtotalpost"):
-        totalnumpost.TotalNumPost()
-
-    elif(option == "engagement"):
-        showengagementBBDD.ShowEngagementBBDD()
+        showtotalnum.Comments()
 
     elif(option == "numtotalfollowers"):
-        totalnumfollowers.TotalNumFollowers()
+        showtotalnum.Followers()
 
     elif(option == "numtotalfollowees"):
-        totalnumfollowees.TotalNumFollowees()
+        showtotalnum.Followees()
 
+    elif(option == "engagement"):     
+        showtotalnum.Engagement()
+
+
+#..........................................................................
     elif(option == "medialikes"):
-        medianumlikes.MediaNumLikes()
+        medianum.Likes()
 
     elif(option == "mediacomentarios"):
-        medianumcomments.MediaNumComments()
+        medianum.Comments()
 
+
+#..........................................................................
     elif(option == "followers"):
         showfollowers.ShowFollowers()
 
     elif(option == "followees"):
         showfollowees.ShowFollowees()
 
+
+#..........................................................................
     elif(option == "nofollowback"):
         nofollowback.NoFollowBack()
 
+
+#..........................................................................
     elif(option == "ghostlastimgfollowers"):
-        ghostlastimg.GhostLastImgFollowers()
+        ghostlastimg.LastFollowers()
 
     elif(option == "ghostlastimgfollowees"):
-        ghostlastimg.GhostLastImgFollowees()
+        ghostlastimg.LastFollowees()
 
     elif(option == "ghosttotalimgfollowees"):
-        ghostlastimg.GhostTotalImgFollowees()
+        #ghostlastimg.TotalFollowees()
+        print("Caracteristicas no disponible")
 
     elif(option == "ghosttotalimgfollowers"):
-        ghostlastimg.GhostTotalImgFollowers()
+        #ghostlastimg.TotalFollowers()
+        print("Caracteristicas no disponible")
 
-    elif(option == "detailslastpost"):
-        detailslastpost.DetailsLastPost()
 
+#..........................................................................
     elif(option == "resumeninfo"):
         resumeninfoaccount.ResumenInfoAccount()
+#
+#    elif(option == "seguidoresperdidos"):
+#        seguidoresperdidos.SeguidoresPerdidos()
 
-    elif(option == "seguidoresperdidos"):
-        seguidoresperdidos.SeguidoresPerdidos()
 
-    elif(option == "test"):
-        test.Test()
-
-    elif(option == "help"):
-        menuayuda.PrintUsage()
-
+#..........................................................................
     else:
         menuayuda.PrintUsage()
 

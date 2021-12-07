@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# python3 InstaStats.py kojiro_thedog --login kojiro_thedog
-
 import os, aux_funcs, argparse, re, printcolors
 import instaloader
 import mysql.connector
@@ -8,31 +5,20 @@ import mysql.connector
 from datetime import date, datetime
 from configparser import ConfigParser
 
-from scripts import nofollowback, showfollowees, showfollowers, medianumcomments, medianumlikes, totalnumfollowees, resumeninfoaccount, totalnumfollowers, showengagementBBDD, totalnumpost, totalnumcomments, totalnumlikes, detailslastpost
-
-
 # ------------------------------------------------------------------------------------------------------------------------
 # Variales
 # ------------------------------------------------------------------------------------------------------------------------
 today = date.today()
+
+# Argumentos
 args = aux_funcs.get_args()
-statusvar = "0"
+#USER = args.login
+#PROFILE = args.user
 
 # Fichero de configuracion.
 config = ConfigParser()
 config.read("config.ini")
-
 NumImangeConf = str(config.get('NUM_CHECK_IMG', 'NumImangeConf'))
-
-# Variables para conectar a Instagram
-L = instaloader.Instaloader()
-#USER = args.user
-#PROFILE = USER
-USER = args.login
-PROFILE = args.user
-
-L.load_session_from_file(USER)
-#profile = instaloader.Profile.from_username(L.context, PROFILE)
 
 # Variables para colorear el texto en consola
 color = printcolors.bcolors()
@@ -54,7 +40,11 @@ ConnectBBDD=mysql.connector.connect(
 # EJECUCION
 # ##########################################################################################################################
 def DetailsLastPost():
-    profile = instaloader.Profile.from_username(L.context, PROFILE)
+    # Conexion Instagram
+    L = instaloader.Instaloader()
+    L.load_session_from_file(args.login)
+    profile = instaloader.Profile.from_username(L.context, args.user)
+
     NumImange = 0
     URL_IMGINS="https://www.instagram.com/p/"
 
