@@ -151,7 +151,7 @@ def main():
 
 
 #..........................................................................
-    elif(option == "seguidoreperdidos"):
+    elif(option == "seguidoresperdidos"):
         lostfollowers.SeguidoresPerdidos()
 
 
@@ -165,9 +165,6 @@ def main():
     elif(option == "test"):
         #nofollowback.NoFollowBackExt()
         ghostlastimg.LastFollowees2()
-
-
-
 
 
 
