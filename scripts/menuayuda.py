@@ -28,8 +28,10 @@ def PrintUsage():
     print("\n- ghostlastimgfollowers\t\t\t\tMuestra tus seguidores que no han dado like en tus ultimas\n\t\t\t\t\t\t20 imagenes")
     print("\n- ghosttotalimgfollowees\t\t\tMuestra tus seguidores que no han dado like en ninguna de tus\n\t\t\t\t\t\timagenes")
     print("\n- ghosttotalimgfollowers\t\t\tMuestra a quien sigues que no han dado like en ninguna de tus\n\t\t\t\t\t\timagenes")
+    print("\n- ghostlastimgfolloweesext\t\t\tMostramos los followees que no dieron like en las ultimas\n\t\t\t\t\t\t5 fotos y su ultima imagen subida")
 
-    print("\n- seguidoresperdidos\t\t\tMuestra tus seguidores peridos")
+
+    print("\n- seguidoresperdidos\t\t\t\tMuestra tus seguidores peridos")
 
 
     print("\n- version\t\t\t\t\tMuestra la version del programa")

@@ -144,6 +144,10 @@ def main():
     elif(option == "ghosttotalimgfollowers"):
         #ghostlastimg.TotalFollowers()
         print("Caracteristicas no disponible")
+    
+    elif(option == "ghostlastimgfolloweesext"):
+        ghostlastimg.LastFolloweesExt()
+
 
 
 #..........................................................................
@@ -159,7 +163,8 @@ def main():
 #..........................................................................
 
     elif(option == "test"):
-        nofollowback.NoFollowBackExt()
+        #nofollowback.NoFollowBackExt()
+        ghostlastimg.LastFollowees2()
 
 
 
