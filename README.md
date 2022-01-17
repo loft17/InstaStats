@@ -4,9 +4,15 @@ Exportación de los principales datos publicos de instagram.
 ## Instalación
 ```
 $ pip3 install instaloader
-$ pip install configparser
-$ pip install flask
+$ pip3 install configparser
+$ pip3 install mysql-connector-python
 $ git clone https://github.com/loft17/InstaStats.git
+```
+
+## Instalación
+```
+$ instaloader --login USUARIO_INSTAGRAM
+$ vi config.ini
 ```
 
 ## Caracteristicas
